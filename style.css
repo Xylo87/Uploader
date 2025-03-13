@@ -1,0 +1,119 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 25px;
+    background: #0d1d45;
+    color: #F2F2F2;
+}
+
+input, button, a {
+    cursor: pointer;
+}
+
+button {
+    padding: 0.1em;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif, Times, serif;
+    line-height: 1.5em;
+}
+
+img {
+    width: 300px;
+    /* object-fit: ; */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.gallery {
+    margin-top: 25px;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+}
+
+.imgSet {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.linkBtn {
+    width: 100%;
+    margin: 5px 0 10px 0;
+}
+
+.delBtn {
+    padding: 0.25em;
+}
+
+.delIcon {
+    font-size: 120%;
+}
+
+
+
+.flashOK {
+    font-weight: 700;
+    width: fit-content;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: green;
+}
+
+.flashFail {
+    font-weight: 700;
+    width: fit-content;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: red;
+}
+
+.title {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.delAllBtn {
+    width: fit-content;
+    padding: 0.2em;
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+}
+
+.delAllIcon {
+    margin-right: 3px;
+}
+
+
+
+
+@media screen and (max-width: 1145px) {
+    
+    .delAllBtn {
+        position: static;
+        align-self: flex-start;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 725px) {
+
+    h1 {
+        font-size: 115%;
+    }
+}
+
+
