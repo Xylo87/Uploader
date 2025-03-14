@@ -1,5 +1,8 @@
 
 <?php
+
+    require 'functions.php';
+    
     // var_dump($_FILES);
 
     // > Upload (extension verify + size verify + set unique name)
