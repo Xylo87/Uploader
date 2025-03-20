@@ -72,7 +72,7 @@
 
 <!-- > Header + Nav display -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,18 +82,21 @@
     crossorigin="anonymous" 
     referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
-    <title>Ultra Mega Images Uploader</title>
+    <title>Ultra Images Uploader by Tiz</title>
 </head>
 <body>
+    <div class="logoContainer">
+        <a href="https://www.tiz.fr/" target="_blank"><img src="./logo-tiz-blanc-sansfd-baseline_(1).png" alt="Logo Tiz"></a>
+    </div>
     <form action="" method="POST" enctype="multipart/form-data">
-        <label for="file"><u>File</u> :</label>
+        <label for="file"><u>Fichier</u> :</label>
         <input type="file" name="file" id="file">
         <button type="submit">➜ Upload !</button><br><br>
     </form>
     <div class="title">
-        <h1>My Images</h1>
+        <h1>Mes images</h1>
         <form method="POST">
-            <button class="delAllBtn" type="submit" name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Delete All</button>
+            <button class="delAllBtn" type="submit" name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Tout supprimer</button>
         </form>
         <hr>
     </div>
@@ -120,7 +123,7 @@ foreach ($files as $file) {
             <a href="'.$filePath.'" target="_blank">
                 <img class="img" src="'.$filePath.'" alt="uploaded-image-'.$counter.'">
             </a><br>
-            <button class="linkBtn">Get link</button>
+            <button class="linkBtn">Copier le lien</button>
             <form method="POST">
                 <input type="hidden" name="file_to_delete" value="'.$file.'">
                 <button class="delBtn" type="submit" name="delete"><i class="fa-solid fa-trash delIcon"></i></button>

@@ -10,12 +10,12 @@ linkBtns.forEach(linkBtn => {
     linkBtn.addEventListener("click", () => {
 
         linkBtns.forEach(resetBtn => {
-            resetBtn.textContent = "Get link"
+            resetBtn.textContent = "Copier le lien"
         });
         
         navigator.clipboard.writeText(image.src)
         
-        linkBtn.textContent = "Copied !"
+        linkBtn.textContent = "Copié !"
     })
 })
 
