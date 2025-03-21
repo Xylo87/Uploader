@@ -23,7 +23,7 @@
         // tableau des extensions autorisées
         $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif'];
 
-        $maxSize = 1024*1024*4;
+        $maxSize = 1024*1024*50;
 
         if (in_array($ext, $authExt) && $size <= $maxSize && $error == 0) {
             $uniqueName = uniqid('', true);
@@ -107,12 +107,23 @@
 <?php 
 
 $files = scandir($directory);
+$images = [];
 $counter = 1;
 
-// > Images display
 foreach ($files as $file) {
+    if ($file != '.' && $file != '..') {
+        
+        $uniqid = pathinfo($file, PATHINFO_FILENAME);
+        $images[$file] = $uniqid;
+    }
+}
 
-    if ($file === '.' || $file === '..') {
+arsort($images);
+
+// > Images display
+foreach ($images as $file => $uniqid) {
+
+    if ($file=== '.' || $file === '..') {
         continue;
     }
 
