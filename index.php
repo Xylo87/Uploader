@@ -1,9 +1,9 @@
 
 <?php
 
+    // > Fonction d'automatisation des suppressions
     include 'functions.php';
 
-    // var_dump($_FILES);
 
     // > Upload (extension verify + size verify + set unique name)
     if (isset($_FILES['file'])) {
@@ -15,13 +15,11 @@
         $size = $_FILES['file']['size'];
 
         $extCut = explode('.', $name);
-        // var_dump($extCut);
 
         $ext = strtolower(end($extCut));
-        // var_dump($ext);
 
         // tableau des extensions autorisées
-        $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif'];
+        $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif', 'pdf', 'doc', 'docx', 'txt', 'odt'];
 
         $maxSize = 1024*1024*50;
 
@@ -31,12 +29,13 @@
 
             move_uploaded_file($tmpName, './upload/'.$fileName);
 
-            echo '<p class="flashOK">Image enregistrée !</p>';
+            echo '<p class="flashOK">Fichier enregistré !</p>';
         } else {
             echo '<p class="flashFail">Extension non autorisée, taille trop importante ou erreur !</p>';
         }
     }
 
+    // > Files directory set
     $directory = "./upload/";
 
     // > Image delete
@@ -82,7 +81,7 @@
     crossorigin="anonymous" 
     referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
-    <title>Ultra Images Uploader by Tiz</title>
+    <title>Ultra File Uploader by Tiz</title>
 </head>
 <body>
     <div class="logoContainer">
@@ -94,7 +93,7 @@
         <button type="submit">➜ Upload !</button><br><br>
     </form>
     <div class="title">
-        <h1>Mes images</h1>
+        <h1>Mes fichiers</h1>
         <form method="POST">
             <button class="delAllBtn" type="submit" name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Tout supprimer</button>
         </form>
@@ -107,32 +106,36 @@
 <?php 
 
 $files = scandir($directory);
-$images = [];
+$fileArray = [];
 $counter = 1;
 
+// > Setting files array for sorted display
 foreach ($files as $file) {
     if ($file != '.' && $file != '..') {
         
         $uniqid = pathinfo($file, PATHINFO_FILENAME);
-        $images[$file] = $uniqid;
+        $fileArray[$file] = $uniqid;
     }
 }
 
-arsort($images);
+// > Sorting files array
+arsort($fileArray);
 
-// > Images display
-foreach ($images as $file => $uniqid) {
+// > Files display
+foreach ($fileArray as $file => $uniqid) {
 
-    if ($file=== '.' || $file === '..') {
+    if ($file === '.' || $file === '..') {
         continue;
     }
 
     $filePath = $directory . $file;
 
-    echo '
-        <div class="imgSet">
+    // > Text files
+    if (str_ends_with($file, 'pdf') || str_ends_with($file, 'txt') || str_ends_with($file, 'docx') || str_ends_with($file, 'doc') || str_ends_with($file, 'odt')) {
+        
+        echo '<div class="imgSet">
             <a href="'.$filePath.'" target="_blank">
-                <img class="img" src="'.$filePath.'" alt="uploaded-image-'.$counter.'">
+                <img class="img" src="./text_file.webp" alt="uploaded-file-'.$counter.'">
             </a><br>
             <button class="linkBtn">Copier le lien</button>
             <form method="POST">
@@ -141,6 +144,22 @@ foreach ($images as $file => $uniqid) {
             </form>
         </div>
         ';
+    } else {
+
+    // > Images files
+        echo '
+        <div class="imgSet">
+            <a href="'.$filePath.'" target="_blank">
+                <img class="img" src="'.$filePath.'" alt="uploaded-file-'.$counter.'">
+            </a><br>
+            <button class="linkBtn">Copier le lien</button>
+            <form method="POST">
+                <input type="hidden" name="file_to_delete" value="'.$file.'">
+                <button class="delBtn" type="submit" name="delete"><i class="fa-solid fa-trash delIcon"></i></button>
+            </form>
+        </div>
+        ';
+    }
 
     $counter++;
 
