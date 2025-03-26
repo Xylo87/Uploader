@@ -27,6 +27,9 @@
             $uniqueName = uniqid('', true);
             $fileName = $uniqueName.'.'.$ext;
 
+            // > Saving original name to .txt file
+            file_put_contents('./original_names_data/'.$uniqueName.'_original_name.txt', $name);
+
             move_uploaded_file($tmpName, './upload/'.$fileName);
 
             echo '<p class="flashOK">Fichier enregistré !</p>';
@@ -95,7 +98,10 @@
     <div class="title">
         <h1>Mes fichiers</h1>
         <form method="POST">
-            <button class="delAllBtn" type="submit" name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Tout supprimer</button>
+            <button 
+            class="delAllBtn" 
+            type="submit" 
+            name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Tout supprimer</button>
         </form>
         <hr>
     </div>
@@ -131,9 +137,19 @@ foreach ($fileArray as $file => $uniqid) {
     $filePath = $directory . $file;
 
     // > Text files
-    if (str_ends_with($file, 'pdf') || str_ends_with($file, 'txt') || str_ends_with($file, 'docx') || str_ends_with($file, 'doc') || str_ends_with($file, 'odt')) {
+    if (str_ends_with($file, 'pdf') || 
+    str_ends_with($file, 'txt') || 
+    str_ends_with($file, 'docx') || 
+    str_ends_with($file, 'doc') || 
+    str_ends_with($file, 'odt')) {
         
-        echo '<div class="imgSet">
+        // > Getting original name for display
+        $originalNameFile = './original_names_data/'.pathinfo($file, PATHINFO_FILENAME).'_original_name.txt';
+        $originalName = file_get_contents($originalNameFile);
+        
+        echo '
+        <div class="imgSet">
+            <h3>'.$originalName.'</h3>
             <a href="'.$filePath.'" target="_blank">
                 <img class="img" src="./text_file.webp" alt="uploaded-file-'.$counter.'">
             </a><br>
