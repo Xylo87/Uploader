@@ -128,19 +128,22 @@ img:not(.logo) {
     }
 }
 
-@media screen and (max-width: 560px) {
-
-    h1 {
-        display: none;
-    }
+@media screen and (max-width: 740px) {
 
     .logoContainer {
-        width: 45%;
-        top: 65px;
+        width: 25%;
+        top: 125px;
     }
 
     .logoContainer img {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 620px) {
+
+    h1 {
+        display: none;
     }
 
     form button {
