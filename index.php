@@ -146,6 +146,9 @@ foreach ($fileArray as $file => $uniqid) {
         // > Getting original name for display
         $originalNameFile = './original_names_data/'.pathinfo($file, PATHINFO_FILENAME).'_original_name.txt';
         $originalName = file_get_contents($originalNameFile);
+        if (strlen($originalName) > 25) {
+            $originalName = substr($originalName, 0, 25).'...';
+        }
         
         echo '
         <div class="imgSet">
