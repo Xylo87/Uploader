@@ -22,7 +22,9 @@ linkBtns.forEach(linkBtn => {
             realLink.endsWith("txt") ||
             realLink.endsWith("docx") ||
             realLink.endsWith("doc") ||
-            realLink.endsWith("odt")
+            realLink.endsWith("odt") ||
+            realLink.endsWith("xls") ||
+            realLink.endsWith("xlsx")
         ) {
             navigator.clipboard.writeText('http://localhost/Uploader' + realLink)
 

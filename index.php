@@ -19,7 +19,7 @@
         $ext = strtolower(end($extCut));
 
         // tableau des extensions autorisées
-        $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif', 'pdf', 'doc', 'docx', 'txt', 'odt'];
+        $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif', 'pdf', 'doc', 'docx', 'txt', 'odt', 'xls', 'xlsx'];
 
         $maxSize = 1024*1024*50;
 
@@ -78,6 +78,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" 
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
@@ -141,7 +142,9 @@ foreach ($fileArray as $file => $uniqid) {
     str_ends_with($file, 'txt') || 
     str_ends_with($file, 'docx') || 
     str_ends_with($file, 'doc') || 
-    str_ends_with($file, 'odt')) {
+    str_ends_with($file, 'odt') ||
+    str_ends_with($file, 'xls') ||
+    str_ends_with($file, 'xlsx')) {
         
         // > Getting original name for display
         $originalNameFile = './original_names_data/'.pathinfo($file, PATHINFO_FILENAME).'_original_name.txt';
