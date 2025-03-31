@@ -1,71 +1,30 @@
 
 <?php
 
-    // > Fonction d'automatisation des suppressions
-    include 'functions.php';
+    // > Import
+    require_once './service/functions.php';
 
+    
 
-    // > Upload (extension verify + size verify + set unique name)
+    // > Upload
     if (isset($_FILES['file'])) {
-
-        $name = $_FILES['file']['name'];
-        $type = $_FILES['file']['type'];
-        $tmpName = $_FILES['file']['tmp_name'];
-        $error = $_FILES['file']['error'];
-        $size = $_FILES['file']['size'];
-
-        $extCut = explode('.', $name);
-
-        $ext = strtolower(end($extCut));
-
-        // tableau des extensions autorisées
-        $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif', 'pdf', 'doc', 'docx', 'txt', 'odt', 'xls', 'xlsx'];
-
-        $maxSize = 1024*1024*50;
-
-        if (in_array($ext, $authExt) && $size <= $maxSize && $error == 0) {
-            $uniqueName = uniqid('', true);
-            $fileName = $uniqueName.'.'.$ext;
-
-            // > Saving original name to .txt file
-            file_put_contents('./original_names_data/'.$uniqueName.'_original_name.txt', $name);
-
-            move_uploaded_file($tmpName, './upload/'.$fileName);
-
-            echo '<p class="flashOK">Fichier enregistré !</p>';
-        } else {
-            echo '<p class="flashFail">Extension non autorisée, taille trop importante ou erreur !</p>';
-        }
+        upload();
     }
+
 
     // > Files directory set
-    $directory = "./upload/";
+    $directory = "./public/upload/";
 
-    // > Image delete
+
+    // > File delete
     if (isset($_POST['delete']) && isset($_POST['file_to_delete'])) {
-        $fileToDelete = $_POST['file_to_delete'];
-        $filePathDel = $directory . $fileToDelete;
-
-        if (file_exists($filePathDel)) {
-            unlink($filePathDel);
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit;
-        }
+        deleteFile();
     }
 
-    // > All images delete
+
+    // > All files delete
     if (isset($_POST['deleteAll'])) {
-        $files = scandir($directory);
-        foreach ($files as $file) {
-            if ($file != "." && $file != "..") {
-                $filePath = $directory . $file;
-                if (file_exists($filePath)) {
-                    unlink($filePath);
-                }
-            }
-        }
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
+        deleteAllFiles();
     }
 
 ?>
@@ -79,42 +38,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
+
+    <!-- Font awesome -->
     <link rel="stylesheet" 
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
     crossorigin="anonymous" 
     referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Ultra File Uploader by Tiz</title>
 </head>
+
 <body>
+
+    <!-- Logo -->
     <div class="logoContainer">
-        <a href="https://www.tiz.fr/" target="_blank"><img src="./logo-tiz-blanc-sansfd-baseline_(1).png" alt="Logo Tiz"></a>
+        <a href="https://www.tiz.fr/" target="_blank">
+            <img src="./assets/images/logo-tiz-blanc-sansfd-baseline_(1).png" alt="Logo Tiz">
+        </a>
     </div>
+
+    <!-- Upload form -->
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="file"><u>Fichier</u> :</label>
         <input type="file" name="file" id="file">
         <button type="submit">➜ Upload !</button><br><br>
     </form>
+    
     <div class="title">
         <h1>Mes fichiers</h1>
+
+        <!-- All delete button -->
         <form method="POST">
             <button 
             class="delAllBtn" 
             type="submit" 
             name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Tout supprimer</button>
         </form>
+
         <hr>
     </div>
+
+    <!-- Gallery -->
     <div class="container">
         <div class="gallery">
 
 
 <?php 
 
+// Variables for display
 $files = scandir($directory);
 $fileArray = [];
 $counter = 1;
+
 
 // > Setting files array for sorted display
 foreach ($files as $file) {
@@ -128,27 +106,32 @@ foreach ($files as $file) {
 // > Sorting files array
 arsort($fileArray);
 
+
+
 // > Files display
 foreach ($fileArray as $file => $uniqid) {
 
-    if ($file === '.' || $file === '..') {
+    if ($file === '.' || $file === '..' || $file === '.gitkeep') {
         continue;
     }
 
     $filePath = $directory . $file;
 
+
     // > Text files
-    if (str_ends_with($file, 'pdf') || 
-    str_ends_with($file, 'txt') || 
-    str_ends_with($file, 'docx') || 
-    str_ends_with($file, 'doc') || 
-    str_ends_with($file, 'odt') ||
-    str_ends_with($file, 'xls') ||
-    str_ends_with($file, 'xlsx')) {
+    if (strpos($file, 'pdf') || 
+    strpos($file, 'txt') || 
+    strpos($file, 'docx') || 
+    strpos($file, 'doc') || 
+    strpos($file, 'odt') ||
+    strpos($file, 'xls') ||
+    strpos($file, 'xlsx')) {
         
         // > Getting original name for display
-        $originalNameFile = './original_names_data/'.pathinfo($file, PATHINFO_FILENAME).'_original_name.txt';
+        $originalNameFile = './public/original_names_data/'.pathinfo($file, PATHINFO_FILENAME).'_original_name.txt';
         $originalName = file_get_contents($originalNameFile);
+
+        // Truncate names
         if (strlen($originalName) > 25) {
             $originalName = substr($originalName, 0, 25).'...';
         }
@@ -157,7 +140,7 @@ foreach ($fileArray as $file => $uniqid) {
         <div class="imgSet">
             <h3>'.$originalName.'</h3>
             <a href="'.$filePath.'" target="_blank">
-                <img class="img" src="./text_file.webp" alt="uploaded-file-'.$counter.'">
+                <img class="img" src="./assets/images/text_file.webp" alt="uploaded-file-'.$counter.'">
             </a><br>
             <button class="linkBtn">Copier le lien</button>
             <form method="POST">
@@ -166,6 +149,7 @@ foreach ($fileArray as $file => $uniqid) {
             </form>
         </div>
         ';
+
     } else {
 
     // > Images files
@@ -189,13 +173,15 @@ foreach ($fileArray as $file => $uniqid) {
 
 ?>
 
-
-
         </div>
     </div>
-<script src="script.js"></script>
+
+<!-- My JavaScript -->
+<script src="./assets/script.js"></script>
 </body>
 </html>
+
+
 
      
 

@@ -32,6 +32,30 @@ img:not(.logo) {
     justify-content: center;
 }
 
+.title {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.logoContainer {
+    position: absolute;
+    right: 25px;
+}
+
+.delAllBtn {
+    width: fit-content;
+    padding: 0.2em;
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+}
+
+.delAllIcon {
+    margin-right: 3px;
+}
+
 .gallery {
     margin-top: 25px;
     width: 90%;
@@ -63,11 +87,6 @@ img:not(.logo) {
     font-size: 120%;
 }
 
-.logoContainer {
-    position: absolute;
-    right: 25px;
-}
-
 
 
 .flashOK {
@@ -85,26 +104,6 @@ img:not(.logo) {
     padding: 10px;
     background: red;
 }
-
-.title {
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.delAllBtn {
-    width: fit-content;
-    padding: 0.2em;
-    position: absolute;
-    bottom: 5px;
-    right: 0;
-}
-
-.delAllIcon {
-    margin-right: 3px;
-}
-
 
 
 
@@ -150,6 +149,13 @@ img:not(.logo) {
         margin-top: 7.5px;
     }
 }
+
+
+
+
+
+
+
 
 
 

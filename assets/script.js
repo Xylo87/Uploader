@@ -1,22 +1,25 @@
 // console.log("Hello")
 
-
 const linkBtns = document.querySelectorAll(".linkBtn")
 
 linkBtns.forEach(linkBtn => {
+
+    // Images link copy elements
     const parent = linkBtn.closest('.imgSet')
-    
     const image = parent.querySelector('img')
     
+    // Files link copy elements
     const link = parent.querySelector('a')
     const realLink = (link.getAttribute('href')).slice(1)
     
     linkBtn.addEventListener("click", () => {
 
+        // Reset text when other button clicked
         linkBtns.forEach(resetBtn => {
             resetBtn.textContent = "Copier le lien"
         });
 
+        // File link copy
         if (
             realLink.endsWith("pdf") ||
             realLink.endsWith("txt") ||
@@ -31,6 +34,7 @@ linkBtns.forEach(linkBtn => {
             // >>> Ligne à adapter en production <<<
             // navigator.clipboard.writeText('https://image-uploader.tiz.fr' + realLink)
 
+        // Image link copy
         } else {
             navigator.clipboard.writeText(image.src)
         }
