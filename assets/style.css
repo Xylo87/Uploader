@@ -27,9 +27,41 @@ img:not(.logo) {
     width: 300px;
 }
 
-.container {
+#dragContainer {
+    width: 25%;
+    margin-bottom: 25px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+
+#dropZone {
+    width: 50%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: dashed 3px white;
+    border-radius: 10px;
+    padding: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+#dropImg {
+    transition: all 0.2s ease-in-out;
+}
+
+#dropText {
+    transition: all 0.2s ease-in-out;
+}
+
+.logoContainer {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+#upload {
+    align-self: flex-start;
 }
 
 .title {
@@ -37,11 +69,7 @@ img:not(.logo) {
     display: flex;
     flex-direction: column;
     position: relative;
-}
-
-.logoContainer {
-    position: absolute;
-    right: 25px;
+    align-self: flex-start;
 }
 
 .delAllBtn {
@@ -54,6 +82,13 @@ img:not(.logo) {
 
 .delAllIcon {
     margin-right: 3px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 185px;
 }
 
 .gallery {

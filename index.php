@@ -59,30 +59,45 @@
             <img src="./assets/images/logo-tiz-blanc-sansfd-baseline_(1).png" alt="Logo Tiz">
         </a>
     </div>
-
-    <!-- Upload form -->
-    <form action="" method="POST" enctype="multipart/form-data">
-        <label for="file"><u>Fichier</u> :</label>
-        <input type="file" name="file" id="file">
-        <button type="submit">➜ Upload !</button><br><br>
-    </form>
     
-    <div class="title">
-        <h1>Mes fichiers</h1>
+    <!-- Drag & Drop -->
+    <div id="dragContainer">
+    
+        <div id="dropZone">
 
-        <!-- All delete button -->
-        <form method="POST">
-            <button 
-            class="delAllBtn" 
-            type="submit" 
-            name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Tout supprimer</button>
-        </form>
+            <div><img id="dropImg" src="./assets/images/icons8-drag-and-drop-96.png" alt="Drag and Drop icon" style="width: 80px;"></div>
+            <div id="dropText">Déposez vos fichiers ici</div>
 
-        <hr>
+        </div>
+
     </div>
 
-    <!-- Gallery -->
+    <!-- Container -->
     <div class="container">
+    
+        <!-- Upload form -->
+        <form id="upload" action="" method="POST" enctype="multipart/form-data">
+            <label for="file"><u>Fichier</u> :</label>
+            <input type="file" name="file" id="file">
+            <button type="submit">➜ Upload !</button><br><br>
+        </form>
+    
+        <!-- Title -->
+        <div class="title">
+            <h1>Mes fichiers</h1>
+
+            <!-- All delete button -->
+            <form method="POST">
+                <button 
+                class="delAllBtn" 
+                type="submit" 
+                name="deleteAll"><i class="fa-solid fa-triangle-exclamation delAllIcon"></i>Tout supprimer</button>
+            </form>
+
+            <hr>
+        </div>
+
+        <!-- Gallery -->
         <div class="gallery">
 
 

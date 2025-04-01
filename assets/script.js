@@ -44,3 +44,35 @@ linkBtns.forEach(linkBtn => {
 })
 
 
+// Drag & Drop
+const dropZone = document.getElementById('dropZone')
+const dropImage = document.getElementById('dropImg')
+const dropText = document.getElementById('dropText')
+
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    e.dataTransfer.dropEffect = 'copy'
+
+    dropZone.style.width = '55%'
+    dropImage.style.width = '96px'
+    dropText.style.fontSize = '110%'
+})
+
+dropZone.addEventListener('dragleave', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    dropZone.style.width = '50%'
+    dropImage.style.width = '80px'
+    dropText.style.fontSize = '100%'
+})
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const files = e.dataTransfer.files
+    console.log(files)
+})
