@@ -142,6 +142,13 @@ img:not(.logo) {
 
 
 
+@media screen and (max-width: 1590px) {
+
+    #dropText {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 1330px) {
     
     .delAllBtn {
@@ -154,23 +161,14 @@ img:not(.logo) {
 @media screen and (max-width: 815px) {
 
     h1 {
-        font-size: 133%;
-    }
-
-    .logoContainer{
-        top: 50px;
+        font-size: 145%;
     }
 }
 
-@media screen and (max-width: 740px) {
+@media screen and (max-width: 720px) {
 
-    .logoContainer {
-        width: 25%;
-        top: 125px;
-    }
-
-    .logoContainer img {
-        width: 100%;
+    #dragContainer {
+        display: none
     }
 }
 

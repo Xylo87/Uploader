@@ -69,10 +69,26 @@ dropZone.addEventListener('dragleave', (e) => {
     dropText.style.fontSize = '100%'
 })
 
-dropZone.addEventListener('drop', (e) => {
+dropZone.addEventListener('drop', async (e) => {
     e.preventDefault()
     e.stopPropagation()
 
     const files = e.dataTransfer.files
     console.log(files)
+
+
+    const formData = new FormData()
+    formData.append('file', files[0])
+
+
+    await fetch('index.php', {
+        method: 'POST',
+        body: formData
+    })
+
+    window.location.reload()
+
+    // dropZone.style.width = '50%'
+    // dropImage.style.width = '80px'
+    // dropText.style.fontSize = '100%'
 })

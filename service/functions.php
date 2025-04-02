@@ -29,9 +29,9 @@ function upload() {
     move_uploaded_file($tmpName, './public/upload/'.$fileName);
 
     // Flash messages
-    echo '<p class="flashOK">Fichier enregistré !</p>';
-    } else {
-    echo '<p class="flashFail">Extension non autorisée, taille trop importante ou erreur !</p>';
+    // echo '<p class="flashOK">Fichier enregistré !</p>';
+    // } else {
+    // echo '<p class="flashFail">Extension non autorisée, taille trop importante ou erreur !</p>';
     }
 }
 
