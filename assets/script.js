@@ -29,10 +29,12 @@ linkBtns.forEach(linkBtn => {
             realLink.endsWith("xls") ||
             realLink.endsWith("xlsx")
         ) {
-            navigator.clipboard.writeText('http://localhost/Uploader' + realLink)
 
-            // >>> Ligne à adapter en production <<<
-            // navigator.clipboard.writeText('https://image-uploader.tiz.fr' + realLink)
+            if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "") {
+                navigator.clipboard.writeText('http://localhost/Uploader' + realLink)
+            } else {
+                navigator.clipboard.writeText('https://image-uploader.tiz.fr' + realLink)
+            }
 
         // Image link copy
         } else {
