@@ -78,7 +78,13 @@ dropZone.addEventListener('drop', async (e) => {
 
 
     const formData = new FormData()
-    formData.append('file', files[0])
+
+    
+    // formData.append('file', files[0])
+
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files[]', files[i]);
+    }
 
 
     await fetch('index.php', {

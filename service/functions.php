@@ -1,37 +1,41 @@
 <?php
 
 function upload() {
+    $filesCount = count($_FILES['files']['name']);
 
-    $name = $_FILES['file']['name'];
-    $type = $_FILES['file']['type'];
-    $tmpName = $_FILES['file']['tmp_name'];
-    $error = $_FILES['file']['error'];
-    $size = $_FILES['file']['size'];
+    for ($i = 0; $i < $filesCount ; $i++) { 
+    
+        $name = $_FILES['files']['name'][$i];
+        $type = $_FILES['files']['type'][$i];
+        $tmpName = $_FILES['files']['tmp_name'][$i];
+        $error = $_FILES['files']['error'][$i];
+        $size = $_FILES['files']['size'][$i];
 
-    $extCut = explode('.', $name);
-    $ext = strtolower(end($extCut));
+        $extCut = explode('.', $name);
+        $ext = strtolower(end($extCut));
 
-    // Authorized extensions
-    $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif', 'pdf', 'doc', 'docx', 'txt', 'odt', 'xls', 'xlsx'];
+        // Authorized extensions
+        $authExt = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'avif', 'pdf', 'doc', 'docx', 'txt', 'odt', 'xls', 'xlsx'];
 
-    // Files size
-    $maxSize = 1024*1024*50;
+        // Files size
+        $maxSize = 1024*1024*50;
 
-    // Setting unique name
-    if (in_array($ext, $authExt) && $size <= $maxSize && $error == 0) {
-        $uniqueName = uniqid('', true);
-        $fileName = $uniqueName.'.'.$ext;
+        // Setting unique name
+        if (in_array($ext, $authExt) && $size <= $maxSize && $error == 0) {
+            $uniqueName = uniqid('', true);
+            $fileName = $uniqueName.'.'.$ext;
 
-    // > Saving original name to .txt file
-    file_put_contents('./public/original_names_data/'.$uniqueName.'_original_name.txt', $name);
+        // > Saving original name to .txt file
+        file_put_contents('./public/original_names_data/'.$uniqueName.'_original_name.txt', $name);
 
-    // Moving file to directory
-    move_uploaded_file($tmpName, './public/upload/'.$fileName);
+        // Moving file to directory
+        move_uploaded_file($tmpName, './public/upload/'.$fileName);
 
-    // Flash messages
-    // echo '<p class="flashOK">Fichier enregistré !</p>';
-    // } else {
-    // echo '<p class="flashFail">Extension non autorisée, taille trop importante ou erreur !</p>';
+        // Flash messages
+        // echo '<p class="flashOK">Fichier enregistré !</p>';
+        // } else {
+        // echo '<p class="flashFail">Extension non autorisée, taille trop importante ou erreur !</p>';
+        }
     }
 }
 

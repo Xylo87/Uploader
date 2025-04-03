@@ -7,7 +7,7 @@
     
 
     // > Upload
-    if (isset($_FILES['file'])) {
+    if (isset($_FILES['files'])) {
         upload();
     }
 
@@ -66,7 +66,7 @@
         <div id="dropZone">
 
             <div><img id="dropImg" src="./assets/images/icons8-drag-and-drop-96.png" alt="Drag and Drop icon" style="width: 80px;"></div>
-            <div id="dropText">Déposez votre fichier ici</div>
+            <div id="dropText">Déposez vos fichiers ici</div>
 
         </div>
 
