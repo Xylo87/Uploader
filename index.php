@@ -78,7 +78,7 @@
         <!-- Upload form -->
         <form id="upload" action="" method="POST" enctype="multipart/form-data">
             <label for="file"><u>Fichier</u> :</label>
-            <input type="file" name="file" id="file">
+            <input type="file" name="files[]" id="file" multiple>
             <button type="submit">➜ Upload !</button><br><br>
         </form>
     
